@@ -1,34 +1,23 @@
 import sys
 
-def reverse_phrase(words):
-    return ' '.join(words[::-1])
 
-def get_input():
-    if len(sys.argv) > 1:
-        return ' '.join(sys.argv[1:])
-    else:
-        return input("Enter a phrase please: ")
-
-def display_result(phrase, reverse=True):
-    print("Reversed Phrase:" if reverse else "Original Phrase:")
-    words = phrase.split()
-    if reverse:
-        words = words[::-1]
-    for word in words:
-        print(word)
-
-def handle_error(e):
-    print(f"Error: {e}")
-
-def main():
-    frase = get_input()
-    if not frase:
-        handle_error("No input provided.")
-        return
-    
-    reversed_phrase = reverse_phrase(frase.split())
-    display_result(reversed_phrase, reverse=True)
+user_inputs = sys.argv[1:]
 
 
-    main()
+if len(user_inputs) < 2:
+    print("Error: Please provide at least two arguments.")
+    sys.exit(1)  
 
+
+reverse_list = True  
+
+
+if reverse_list:
+    reversed_inputs = []
+    for i in range(len(user_inputs) - 1, -1, -1):
+        reversed_inputs.append(user_inputs[i])
+    user_inputs = reversed_inputs
+
+
+for input_item in user_inputs:
+    print(input_item)

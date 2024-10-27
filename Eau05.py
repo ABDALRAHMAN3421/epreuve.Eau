@@ -1,7 +1,7 @@
 import sys
 
-def search_chain(chain_principal, chain_search): 
-    if chain_search in chain_principal: 
+def search_chain(main_chain, search_chain): 
+    if search_chain in main_chain: 
         return True  
     else:
         return False  
@@ -9,23 +9,25 @@ def search_chain(chain_principal, chain_search):
 def get_user_input(prompt):
     user_input = input(prompt)
     if user_input:
+        if any(char.isdigit() for char in user_input):
+            print(f"Invalid input for {prompt.strip(': ')}: No numbers allowed.", file=sys.stderr)
+            return None
         return user_input
     else:
         print(f"Invalid input for {prompt.strip(': ')}", file=sys.stderr)
         return None
 
 def main():
-    chain_principal = get_user_input("Entrée la chaîne principale : ") 
-    chain_search = get_user_input("Entrée la chaîne à rechercher : ") 
+    main_chain = get_user_input("Enter the main chain: ") 
+    search_chain_text = get_user_input("Enter the chain to search for: ") 
 
-    if chain_principal is None or chain_search is None:
-        print("Error in input. Exiting.")
+    if main_chain is None or search_chain_text is None:
+        print("Error .")
         return
 
-    if search_chain(chain_principal, chain_search): 
-        print("La chaîne recherchée est présente dans la chaîne principale.") 
+    if search_chain(main_chain, search_chain_text): 
+        print("The search chain is present in the main chain.") 
     else:
-        print("La chaîne recherchée n'est pas présente dans la chaîne principale.")
-
+        print("The search chain is not present in the main chain.")
 
 main()

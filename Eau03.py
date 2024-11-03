@@ -1,35 +1,41 @@
 import sys
 
-def fibonacci(i):
-    if i == 0:
-        return 0 
-    elif i == 1:
-        return i
-    else:
-        return fibonacci(i-2) + fibonacci(i-1)
+def fibonacci_nth_element(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
 
-def get_input():
-    if len(sys.argv) > 1:
-        return sys.argv[1]
-    else:
-        return input("Enter a number: ")
+    a, b = 0, 1
 
-def validate_input(n):
-    if not n.isdigit():
-        print("error")
-        return False
-    elif int(n) <= 0:
-        print("you can't enter a value that goes from 0 and down")
-        return False
-    return True
+    for _ in range(2, n + 1):
+        a, b = b, a + b
 
-def main():
-    n = get_input()
-    if validate_input(n):
-        n = int(n)
-        print(fibonacci(n))
-        return True
-    return False
+    return b
 
-success = main()
-print("Execution was successful:", success)
+def is_number(argument):
+    if not isinstance(argument, int) or argument < 0:
+        print("Erreur : l'argument doit être un nombre entier positif")
+        sys.exit(1)
+
+
+
+def get_argument():
+    if len(sys.argv) < 2:
+        print("Erreur : veuillez fournir un argument")
+        sys.exit(1)
+    try:
+        argument = int(sys.argv[1])
+    except ValueError:
+        print("Erreur : l'argument doit être un nombre entier")
+        sys.exit(1)
+    return argument
+
+
+argument = get_argument()
+is_number(argument)
+
+result = fibonacci_nth_element(argument)
+
+
+print(result)

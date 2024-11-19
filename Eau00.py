@@ -1,20 +1,19 @@
-def three_digit_combination():
-    result = []
-    
-    for number in range(0, 10):  
-        for number2 in range(number + 1, 10):  
-            for number3 in range(number2 + 1, 10):  
-                result.append(f"{number}{number2}{number3}")  
-    
-    return ','.join(result)  
+def show_three_numbers():
+    for a in range(1, 10):
+        for b in range(a + 1, 10):
+            for c in range(b + 1, 10):
+                combine_numbers(a + b + c)
+                
 
-def main():
-    user_input = input("Please enter some input: ")
-    if not user_input:
-        print("Error: No arguments provided. Please provide input.")
-        return  
-    
-    result = three_digit_combination()
-    print(result)
 
+def combine_numbers(A, B, C):
+    combination = [A, B, C]
+    show_numbers(combination)
+    
+
+
+def show_numbers(combination):
+    print(combination)
+
+show_three_numbers()
 

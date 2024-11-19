@@ -1,45 +1,32 @@
 import sys
 
-def get_input():
-    try:
-        number = int(input("Please enter a number: "))
-        return number, True
-    except ValueError:
-        return None, False
 
-def validate_input(number):
-    if number == 0 or number == -1:
-        return False, "You can't enter a value that goes from 0 and down."
-    return True, None
-
-def calculate_next_odd(number):
-    if number % 2 == 0:
-        return number + 1
-    else:
-        return number + 2
-
-def handle_error(message):
-    print(message)
+if len(sys.argv) != 2: 
+    print("Erreur : un seul argument est requis.")
     sys.exit(1)
 
-def display_result(number, next_odd):
-    print(f"The next odd number after {number} is {next_odd}")
+argument = sys.argv[1]
 
-def main():
-    number, valid_input = get_input()
-    
-    if not valid_input:
-        handle_error("Invalid input. Please enter a valid number.")
-    
-    is_valid, error_message = validate_input(number)
-    
-    if not is_valid:
-        handle_error(error_message)
-    
-    next_odd = calculate_next_odd(number)
-    display_result(number, next_odd)
+
+if not argument.isdigit() or int(argument) < 0:
+    print("Erreur : l'argument doit être un nombre entier positif.")
+    sys.exit(1)
+
+argument = int(argument)
+
+def is_prime(num):
+    if num <= 1:  
+        return False
+    for i in range(2, num):
+        if num % i == 0:  
+            return False
     return True
 
 
-execution_success = main()
-print("Execution was successful:", execution_success)
+next_number = argument + 1
+while True:
+    if is_prime(next_number):
+        break
+    next_number += 1
+
+print(next_number)

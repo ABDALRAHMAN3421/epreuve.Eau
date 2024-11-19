@@ -1,30 +1,15 @@
 import sys
 
-def validate_arguments(arguments):
-    if len(arguments) < 2:
-        print("Error: Please provide at least two arguments.")
-        sys.exit(1)
+def reverse_argument():
+    argument = sys.argv[1:]
 
-def print_arguments_in_reverse(arguments):
-    for i in range(len(arguments) - 1, -1, -1):
-        print(arguments[i])
+    result = ""
+    for i in range(len(argument) - 1, -1, -1):
+        result += argument[i]
+        if i > 0:
+            result += ' '
 
-def main():
-    arguments = sys.argv[1:]
-    
 
-    reverse_list = False
-    if '--reverse' in arguments:
-        reverse_list = True
-        arguments.remove('--reverse')  
-    
+    print(result)
 
-    validate_arguments(arguments)
-    
-
-    if reverse_list:
-        print_arguments_in_reverse(arguments)
-    else:
-        for argument in arguments:
-            print(argument)
-
+reverse_argument()

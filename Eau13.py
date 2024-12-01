@@ -1,33 +1,44 @@
 import sys
 
-def my_select_sort(numbers):
-    for i in range(len(numbers)):
+
+def my_select_sort(array):
+    n = len(array)
+    sorted_array = array[:]  
+    for i in range(n):
         min_index = i
-        for j in range(i + 1, len(numbers)):
-            if numbers[j] < numbers[min_index]:
+        for j in range(i + 1, n):
+            if sorted_array[j] < sorted_array[min_index]:
                 min_index = j
-        numbers[i], numbers[min_index] = numbers[min_index], numbers[i]
-    return numbers
+        if min_index != i:
+            temp = sorted_array[i]
+            sorted_array[i] = sorted_array[min_index]
+            sorted_array[min_index] = temp
+    return sorted_array
 
-def process_input(user_input):
-    try:
-        numbers = [int(i) for i in user_input.split()]
-        return numbers
-    except ValueError:
-        return None
 
-def main():
-    if len(sys.argv) > 1:
-        user_input = ' '.join(sys.argv[1:])
-    else:
-        user_input = input("Entrez vos nombres séparés par des espaces : ")
+def validate_numbers(arguments):
+    validated_numbers = []
+    for arg in arguments:
+        
+        if arg.replace('.', '', 1).isdigit() or (arg[0] == '-' and arg[1:].replace('.', '', 1).isdigit()):
+            validated_numbers.append(float(arg))
+        else:
+            print(f"Erreur : '{arg}' n'est pas un nombre valide.")
+            sys.exit(1)  
+    return validated_numbers
+
+
+def resolve():
+    arguments = sys.argv[1:]
+    if not arguments:
+        print("Erreur : Aucun argument fourni.")
+        sys.exit(1)  
     
-    numbers = process_input(user_input)
     
-    if numbers is not None:
-        sorted_numbers = my_select_sort(numbers)
-        print("Tableau trié :", sorted_numbers)
-    else:
-        print("Erreur : veuillez entrer des nombres valides.")
+    numbers = validate_numbers(arguments)
+    sorted_numbers = my_select_sort(numbers)
+    
+    
+    print(" ".join(map(str, sorted_numbers)))
 
-    main()
+

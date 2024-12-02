@@ -1,30 +1,31 @@
-import sys
+def minimal_difference(arg):
+    arg = sorted(arg)
+    min_difference = float('inf')
 
-def min_abs_difference(arr):
-    arr.sort()  
-    min_diff = float('infinity')  
+    
+    for i in range(len(arg) - 1):
+        current_difference = abs(arg[i] - arg[i + 1])
+        if current_difference < min_difference:
+            min_difference = current_difference
 
-    for i in range(len(arr) - 1):
-        diff = abs(arr[i] - arr[i+1])  
-        min_diff = min(min_diff, diff)  
+    return min_difference
 
-    return min_diff
+def is_a_number(arg):
+    for item in arg:
+        if item.lstrip('-').replace('.', '', 1).isdigit() == False:
+            return False
+    return True
 
-def main_logic():
-    numbers_input = input("Please enter some numbers: ")
+def get_argument():
+    import sys
+    return sys.argv[1:]  
 
-    if numbers_input:
-        split_numbers = numbers_input.split()
-        if all(num.lstrip('-').isdigit() for num in split_numbers):
-            numbers = list(map(int, split_numbers))
-            if len(numbers) > 1:
-                result = min_abs_difference(numbers)
-                print("Minimum absolute difference:", result)
-            else:
-                print("An error occurred: Please enter at least two numbers.")
-        else:
-            print("An error occurred: Please enter valid integers separated by spaces.")
-    else:
-        print("An error occurred: Input cannot be empty.")
+my_argument = get_argument()
 
-main_logic()
+if is_a_number(my_argument):
+    my_argument = [float(x) for x in my_argument]
+    result = minimal_difference(my_argument)
+    print(result)
+else:
+    print("Erreur : L'argument doit être un nombre.")
+

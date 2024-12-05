@@ -1,17 +1,31 @@
 import sys
 
-def process_word():
-    word = input("Enter a word: ")
+def capitalize_words_manually(string):
+    if any(char.isdigit() for char in string):  
+        return "Error: The string contains numbers."
+    
+    result = ""
+    new_word = True  
 
-    if word.isdigit():
-        print("error")
-    elif not word:
-        print("Error: No input provided", file=sys.stderr)
-    else:
-        print(word.title())
+    for char in string:
+        if char.isspace():  
+            result += char
+            new_word = True  
+        elif new_word:  
+            result += char.upper()
+            new_word = False  
+        else:  
+            result += char.lower()
+    
+    return result
 
 def main():
-    process_word()
-
+    if len(sys.argv) < 2:
+        print("Error: No input provided", file=sys.stderr)
+        return
+    
+    input_string = " ".join(sys.argv[1:])  
+    result = capitalize_words_manually(input_string)
+    print(result)
 
 main()

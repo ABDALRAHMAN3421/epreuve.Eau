@@ -25,7 +25,7 @@ def main():
         return
     
     input_string = " ".join(sys.argv[1:])  
-    result = capitalize_words_manually(input_string)
+    result = capitalize_first_letter(input_string)
     print(result)
 
 main()

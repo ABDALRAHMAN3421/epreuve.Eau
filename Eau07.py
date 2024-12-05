@@ -1,6 +1,6 @@
 import sys
 
-def capitalize_words_manually(string):
+def capitalize_first_letter(string):
     if any(char.isdigit() for char in string):  
         return "Error: The string contains numbers."
     

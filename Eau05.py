@@ -1,33 +1,51 @@
 import sys
 
-def search_chain(main_chain, search_chain): 
-    if search_chain in main_chain: 
-        return True  
-    else:
-        return False  
 
-def get_user_input(prompt):
-    user_input = input(prompt)
-    if user_input:
-        if any(char.isdigit() for char in user_input):
-            print(f"Invalid input for {prompt.strip(': ')}: No numbers allowed.", file=sys.stderr)
-            return None
-        return user_input
+def is_slice(argument, argument2):
+    i = 0
+    j = 0
+
+    while i < len(argument):
+        j = i + 1
+        while j <= len(argument):
+            match = True
+            if len(argument[i:j]) == len(argument2):
+                for k in range(len(argument2)):
+                    if argument[i + k] != argument2[k]:
+                        match = False
+                        break
+                if match:
+                    return {"i": i, "j": j}
+            j += 1
+        i += 1
+
+    return {"i": -1, "j": -1}
+
+def verify_slice(argument1, argument2):
+    result = is_slice(argument1, argument2)
+    i, j = result["i"], result["j"]
+    if i != -1 and j != -1:
+        print("true")
     else:
-        print(f"Invalid input for {prompt.strip(': ')}", file=sys.stderr)
-        return None
+        print("false")
+
 
 def main():
-    main_chain = get_user_input("Enter the main chain: ") 
-    search_chain_text = get_user_input("Enter the chain to search for: ") 
+    if len(sys.argv) != 3:
+        print("Error: Veuillez fournir deux chaînes de caractères en arguments.")
+        sys.exit(1)
 
-    if main_chain is None or search_chain_text is None:
-        print("Error .")
-        return
+   
+    argument1 = sys.argv[1]
+    argument2 = sys.argv[2]
 
-    if search_chain(main_chain, search_chain_text): 
-        print("The search chain is present in the main chain.") 
-    else:
-        print("The search chain is not present in the main chain.")
+    
+    if not argument1.isalpha() or not argument2.isalpha():
+        print("Error: Les arguments doivent être des chaînes de caractères contenant uniquement des lettres.")
+        sys.exit(1)
+
+ 
+    verify_slice(argument1, argument2)
+
 
 main()

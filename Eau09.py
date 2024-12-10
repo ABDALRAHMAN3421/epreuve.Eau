@@ -26,4 +26,4 @@ def main():
         else:
             print("Error: Please enter valid numbers.")
 
-main()
+print(main)

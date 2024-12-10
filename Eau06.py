@@ -1,38 +1,29 @@
 import sys
 
-def alternate_case(word):
-    if not word:
-        return None, "Input is empty"
-    
-    word = list(word.lower())  
+def capitalize_every_other(string):
+    result = []
+    capitalize = True  
 
-    for i in range(0, len(word), 2):
-        word[i] = word[i].upper()  
+    for char in string:
+        if char.isalpha():  
+            if capitalize:
+                result.append(char.upper())
+            else:
+                result.append(char.lower())
+            capitalize = not capitalize  
+        else:
+            result.append(char)  
 
-    word = ''.join(word)  
+    return ''.join(result)
 
-    if word.isdigit():
-        return None, "error"
+def resolve(input_string):
+    if isinstance(input_string, str):  
+        return capitalize_every_other(input_string)
     else:
-        return word, None
+        return "Error: Input must be a string!"
 
-def get_user_input(prompt):
-    user_input = input(prompt)
-    if user_input:
-        return user_input
+    if len(sys.argv) > 1:
+        string_to_process = sys.argv[1]
+        print(resolve(string_to_process))
     else:
-        return None
-
-def main():
-    word = get_user_input('Enter your word: ')
-
-    if word is None:
-        print("Error in input. Exiting.")
-        return
-    result, error = alternate_case(word)
-    if error:
-        print(error, file=sys.stderr)
-    else:
-        print("Your result is: " + result)
-
-main()
+        print("Error: Please provide a string as a command-line argument.")
